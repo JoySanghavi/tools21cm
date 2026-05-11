@@ -235,9 +235,12 @@ def plot_triangle(samples_dict, weights_dict=None,
             mcs.append(s)
         
         g = plots.get_subplot_plotter()
+        color_list = [colors[n] for n in names] if isinstance(colors, dict) else (list(colors) if colors is not None else [None]*len(names))
+        line_args = [{'color': c} for c in color_list]
         # GetDist uses 'markers' for the truth lines in the 1D/2D plots
         g.triangle_plot(mcs, filled=True, levels=levels,
-                        colors=[colors[n] for n in names] if isinstance(colors, dict) else None,
+                        colors=color_list,
+                        line_args=line_args,
                         legend_labels=names, markers=truths, **kwargs)
         return g
 
